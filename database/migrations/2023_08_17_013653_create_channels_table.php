@@ -10,12 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('channels', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string("property");
-            $table->text("content")->nullable();
-            $table->text("description")->nullable();
+            $table->bigInteger('chat_id')->index();
+            $table->unsignedBigInteger('conversation_id')->index();
+            $table->string("title");
+            $table->string("username")->nullable();
             $table->timestamps();
+
+            $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
         });
     }
 
@@ -24,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('channels');
     }
 };

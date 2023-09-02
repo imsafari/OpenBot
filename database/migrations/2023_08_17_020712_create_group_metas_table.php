@@ -10,12 +10,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('group_metas', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string("property");
+            $table->unsignedBigInteger('group_id')->index();
+            $table->string("property")->index();
             $table->text("content")->nullable();
             $table->text("description")->nullable();
             $table->timestamps();
+
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
+
         });
     }
 
@@ -24,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('group_metas');
     }
 };

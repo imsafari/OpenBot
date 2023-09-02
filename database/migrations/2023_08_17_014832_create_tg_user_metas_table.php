@@ -10,12 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('tg_user_metas', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string("property");
+            $table->unsignedBigInteger('tg_user_id')->index();
+            $table->string("property")->index();
             $table->text("content")->nullable();
             $table->text("description")->nullable();
             $table->timestamps();
+
+            $table->foreign('tg_user_id')->references('id')->on('tgusers')->onDelete('cascade');
         });
     }
 
@@ -24,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('tg_user_metas');
     }
 };

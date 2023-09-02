@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        \App\Providers\BotServiceProvider::class
     ])->toArray(),
 
     /*
@@ -185,4 +186,8 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+
+    "bot_token" => env("TELEGRAM_BOT_TOKEN"),
+    "bot_username" => env("TELEGRAM_BOT_USERNAME"),
+    "admins" => []
 ];

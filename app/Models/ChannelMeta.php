@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Setting extends Model
+class ChannelMeta extends Model
 {
     use HasFactory;
 
@@ -15,4 +16,8 @@ class Setting extends Model
         "description",
     ];
 
+    public function channel(): BelongsTo
+    {
+        return $this->belongsTo(Channel::class);
+    }
 }
