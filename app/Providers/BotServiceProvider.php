@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\BotServices\Chat;
-use App\BotServices\ConversationLayer\ConversationManager;
-use App\BotServices\BotHandler;
+use App\BotServices\BotContext;
+use App\BotServices\ConversationLayer\ConversationHandlerInterface;
 use App\BotServices\ConversationLayer\ConversationSteps\StepContext;
 use App\BotServices\UpdateHandlers\CallbackQueryHandler;
 use App\BotServices\UpdateHandlers\ChannelPostHandler;
@@ -45,12 +44,20 @@ class BotServiceProvider extends ServiceProvider implements DeferrableProvider
 
         /* Structure begins here */
 
-        $this->app->singleton(BotHandler::class, function (Application $app) {
-            return new BotHandler;
+        $this->app->singleton(BotContext::class, function (Application $app) {
+            return new BotContext(
+                $app->make(Telegram::class),
+                $app->make(Update::class)
+            );
         });
 
+
         $this->app->singleton(UpdateHandlerInterface::class, function (Application $app) {
-            return $app->call([$app->make(BotHandler::class), "UpdateHandler"]);
+            return $app->make(BotContext::class)->updateHandler;
+        });
+
+        $this->app->singleton(ConversationHandlerInterface::class, function (Application $app) {
+            return $app->make(BotContext::class)->conversationHandler;
         });
 
         $this->app->singleton(StepContext::class, function (Application $app) {
@@ -164,7 +171,7 @@ class BotServiceProvider extends ServiceProvider implements DeferrableProvider
     public function provides(): array
     {
         return [
-            UpdateHandlerInterface::class,
+            StepContext::class
         ];
     }
 

@@ -5,20 +5,18 @@ namespace App\BotServices\UpdateHandlers;
 
 use App\BotServices\BotHandler;
 use App\BotServices\Chat;
-use App\BotServices\ConversationLayer\ConversationInterface;
+use App\BotServices\ConversationLayer\ConversationHandlerInterface;
 use App\BotServices\User;
 use Illuminate\Support\Facades\App;
 use Longman\TelegramBot\Entities\Update;
 
 class MessageHandler extends BaseHandler implements UpdateHandlerInterface
 {
-    public ConversationInterface $conversationHandler;
 
     public function __construct(
         public Update $update
     )
     {
-        $this->conversationHandler = \app(BotHandler::class)->ConversationHandler($this);
     }
 
 
@@ -31,7 +29,7 @@ class MessageHandler extends BaseHandler implements UpdateHandlerInterface
     {
         $message = $this->update->getMessage();
 
-        return app(Chat::class, [
+        return new Chat(...[
             "id" => $message->getChat()->getId(),
             "type" => $message->getChat()->getType(),
             "title" => $message->getChat()->getTitle(),
@@ -46,7 +44,7 @@ class MessageHandler extends BaseHandler implements UpdateHandlerInterface
     {
         $message = $this->update->getMessage();
 
-        return app(User::class, [
+        return new User(...[
             "id" => $message->getFrom()->getId(),
             "is_bot" => $message->getFrom()->getIsBot(),
             "first_name" => $message->getFrom()->getFirstName(),
@@ -60,10 +58,11 @@ class MessageHandler extends BaseHandler implements UpdateHandlerInterface
 
     public function doAction(): void
     {
-        $this->conversationHandler->load();
+        $conversationHandler = app(ConversationHandlerInterface::class);
+        $conversationHandler->load();
 
-        App::setLocale($this->conversationHandler->getLocale());
+        App::setLocale($conversationHandler->getLocale());
 
-        $this->conversationHandler->runQualifiedSteps();
+        $conversationHandler->runQualifiedSteps();
     }
 }

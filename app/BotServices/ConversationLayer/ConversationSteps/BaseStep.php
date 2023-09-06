@@ -2,7 +2,7 @@
 
 namespace App\BotServices\ConversationLayer\ConversationSteps;
 
-use App\BotServices\ConversationLayer\ConversationInterface;
+use App\BotServices\ConversationLayer\ConversationHandlerInterface;
 
 abstract class BaseStep
 {

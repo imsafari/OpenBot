@@ -29,10 +29,6 @@ abstract class Conversation
         };
     }
 
-    public function load()
-    {
-        echo "\n(unhandled load method) handled by parent conversation for " . static::class;
-    }
 
     public function runQualifiedSteps(): void
     {
@@ -40,7 +36,7 @@ abstract class Conversation
         $steps = $this->stepGenerator();
 
         foreach ($steps as $step) {
-            if ($step->isQualified($this)) {
+            if (App::call([$step, "isQualified"])) {
 
                 $step->handle();
                 $stepContext->newHandledStep($step);

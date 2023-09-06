@@ -2,12 +2,10 @@
 
 namespace App\BotServices\ConversationLayer\ConversationSteps;
 
-use App\BotServices\Chat;
-use App\BotServices\ConversationLayer\ConversationInterface;
+use App\BotServices\BotContext;
 use App\BotServices\Enums\ChatType;
 use App\BotServices\Enums\PrivateState;
 use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
-use App\Models\Conversation;
 
 class PrivateStartStep extends BaseStep implements StepInterface
 {
@@ -17,8 +15,10 @@ class PrivateStartStep extends BaseStep implements StepInterface
     ];
 
     public function __construct(
-        private StepContext            $context,
-        private UpdateHandlerInterface $updateHandler)
+        public BotContext             $botContext,
+        public StepContext            $context,
+        public UpdateHandlerInterface $updateHandler,
+    )
     {
     }
 
@@ -35,7 +35,7 @@ class PrivateStartStep extends BaseStep implements StepInterface
         if ($chat->type != $this->qualifications["chat_type"])
             return false;
 
-        if ($this->conversation->state != $this->qualifications["step"])
+        if ($this->botContext->conversation->state != $this->qualifications["step"])
             return false;
 
         echo "i'm qualified";

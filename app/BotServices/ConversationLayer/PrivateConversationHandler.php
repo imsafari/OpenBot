@@ -4,22 +4,20 @@ namespace App\BotServices\ConversationLayer;
 
 use App\BotServices\Chat;
 use App\BotServices\ConversationLayer\ConversationSteps\PrivateStartStep;
-use App\BotServices\ConversationLayer\ConversationSteps\StepContext;
 use App\BotServices\Enums\MetaKeys;
 use App\BotServices\User;
 use App\Models\Conversation as ConversationModel;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Entities\Update;
-use Monolog\Logger;
 
-class PrivateConversation extends Conversation implements ConversationInterface
+class PrivateConversationHandler extends Conversation implements ConversationHandlerInterface
 {
     private array $stepQueue = [
         PrivateStartStep::class
+
     ];
 
-    public ?ConversationModel $conversation;
+    public ?ConversationModel $conversation = null;
 
     public function __construct(
         public ?Chat  $chat,
@@ -27,21 +25,18 @@ class PrivateConversation extends Conversation implements ConversationInterface
         public Update $update
     )
     {
+        echo "#1 i generated as private conversation handler\n";
     }
 
-    public function load()
+    public function load(): ConversationModel
     {
-        $this->conversation = ConversationModel::with([
+
+        return $this->conversation ?? $this->conversation = ConversationModel::with([
             "private" => ["meta"]
         ])->where([
             'chat_id' => $this->chat->id,
             "chat_type" => $this->chat->type
-        ])->first();
-
-        if (!$this->conversation) {
-            $this->createNewPrivateConversation();
-        }
-
+        ])->firstOr(fn() => $this->createNewPrivateConversation());
     }
 
     private function createNewPrivateConversation(): void

@@ -3,7 +3,7 @@
 namespace App\BotServices\ConversationLayer;
 
 
-class GroupConversation extends Conversation implements ConversationInterface
+class GroupConversationHandler extends Conversation implements ConversationHandlerInterface
 {
 
     public function stepQueue(): array

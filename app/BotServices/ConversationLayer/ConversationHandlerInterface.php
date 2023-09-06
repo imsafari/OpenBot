@@ -3,12 +3,12 @@
 namespace App\BotServices\ConversationLayer;
 
 
-interface ConversationInterface
+interface ConversationHandlerInterface
 {
 
     public function initialState(): string;
 
-    public function load();
+    public function load(): \App\Models\Conversation;
 
     public function runQualifiedSteps(): void;
 
