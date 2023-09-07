@@ -26,7 +26,6 @@ class PrivateStartStep extends BaseStep implements StepInterface
     public function handle(): void
     {
 //        $this->context->stop();
-        echo "\n\nso handled well";
     }
 
     public function isQualified(): bool
@@ -38,7 +37,7 @@ class PrivateStartStep extends BaseStep implements StepInterface
         if ($this->botContext->conversation->state != $this->qualifications["step"])
             return false;
 
-        echo "i'm qualified";
+        //step is qualified
         return true;
     }
 

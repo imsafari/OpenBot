@@ -5,15 +5,10 @@ namespace App\BotServices\UpdateHandlers;
 use App\BotServices\Chat;
 use App\BotServices\User;
 
-class BaseHandler
+abstract class BaseHandler
 {
-    public function getUser(): ?User
-    {
-        return null;
-    }
+    abstract public function getUser(): ?User;
 
-    public function getChat(): ?Chat
-    {
-        return null;
-    }
+
+    abstract public function getChat(): ?Chat;
 }

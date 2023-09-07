@@ -8,10 +8,10 @@ use App\BotServices\User;
 use Illuminate\Support\Facades\App;
 use Longman\TelegramBot\Entities\Update;
 
-class ShippingQueryHandler extends BaseHandler implements UpdateHandlerInterface
+class ChatJoinRequest extends BaseHandler implements UpdateHandlerInterface
 {
     public function __construct(
-        public Update $update,
+        public Update $update
     )
     {
     }
@@ -19,18 +19,28 @@ class ShippingQueryHandler extends BaseHandler implements UpdateHandlerInterface
 
     public function chatType(): string
     {
-        //everywhere
-        return "";
+        //group or supergroup or channel
+        return $this->update->getChatJoinRequest()->getChat()->getType();
     }
 
     public function getChat(): ?Chat
     {
-        return null;
+        $chatJoinRequest = $this->update->getChatJoinRequest();
+
+        return new Chat(...[
+            "id" => $chatJoinRequest->getChat()->getId(),
+            "type" => $chatJoinRequest->getChat()->getType(),
+            "title" => $chatJoinRequest->getChat()->getTitle(),
+            "username" => $chatJoinRequest->getChat()->getUsername(),
+            "first_name" => $chatJoinRequest->getChat()->getFirstName(),
+            "last_name" => $chatJoinRequest->getChat()->getLastName(),
+            "message_id" => null,
+        ]);
     }
 
     public function getUser(): ?User
     {
-        $from = $this->update->getShippingQuery()->getFrom();
+        $from = $this->update->getChatJoinRequest()->getFrom();
 
         return new User(...[
             "id" => $from->getId(),
@@ -46,6 +56,6 @@ class ShippingQueryHandler extends BaseHandler implements UpdateHandlerInterface
 
     public function doAction(): void
     {
-        //todo: run shipping query responder
+        //todo: run chat join request responder
     }
 }

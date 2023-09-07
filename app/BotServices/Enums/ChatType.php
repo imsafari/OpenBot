@@ -9,5 +9,5 @@ enum ChatType: string
     case Group = "group";
     case Supergroup = "supergroup";
 
-    case Sender = "sender"; //for inline query and only in secret chat
+    case Sender = "sender"; //for inline query and only in secret chat or private bot chat
 }

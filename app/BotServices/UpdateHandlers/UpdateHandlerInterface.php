@@ -9,6 +9,7 @@ interface UpdateHandlerInterface
 {
     public function doAction(): void;
 
+    //based this method response, conversation will handle by bot context conversation handler
     public function chatType(): string;
 
     public function getChat(): ?Chat;

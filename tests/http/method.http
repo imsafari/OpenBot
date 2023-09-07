@@ -1,0 +1,71 @@
+### Send Message to Group
+POST https://api.telegram.org/bot{{token}}/sendMessage
+Content-Type: application/json
+Accept: application/json
+
+{
+  "chat_id": -652973741,
+  "text": "salam",
+  "reply_markup": {
+    "inline_keyboard": [
+      [
+        {
+          "text": "👍",
+          "callback_data": "like"
+        },
+        {
+          "text": "👎",
+          "callback_data": "dislike"
+        }
+      ]
+    ]
+  }
+}
+
+### Send Message to Private
+POST https://api.telegram.org/bot{{token}}/sendMessage
+Content-Type: application/json
+Accept: application/json
+
+{
+  "chat_id": 69221229,
+  "text": "salam",
+  "reply_markup": {
+    "inline_keyboard": [
+      [
+        {
+          "text": "👍",
+          "callback_data": "like"
+        },
+        {
+          "text": "👎",
+          "callback_data": "dislike"
+        }
+      ]
+    ]
+  }
+}
+
+### Send Message to Channel
+POST https://api.telegram.org/bot{{token}}/sendMessage
+Content-Type: application/json
+Accept: application/json
+
+{
+    "chat_id": -1001948242822,
+    "text": "salam",
+    "reply_markup": {
+        "inline_keyboard": [
+            [
+                {
+                    "text": "👍",
+                    "callback_data": "like"
+                },
+                {
+                    "text": "👎",
+                    "callback_data": "dislike"
+                }
+            ]
+        ]
+    }
+}

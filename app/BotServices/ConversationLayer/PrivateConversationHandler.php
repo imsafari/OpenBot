@@ -2,6 +2,7 @@
 
 namespace App\BotServices\ConversationLayer;
 
+use App\BotServices\BotContext;
 use App\BotServices\Chat;
 use App\BotServices\ConversationLayer\ConversationSteps\PrivateStartStep;
 use App\BotServices\Enums\MetaKeys;
@@ -20,23 +21,24 @@ class PrivateConversationHandler extends Conversation implements ConversationHan
     public ?ConversationModel $conversation = null;
 
     public function __construct(
-        public ?Chat  $chat,
-        public ?User  $user,
-        public Update $update
+        public ?Chat      $chat,
+        public ?User      $user,
+        public Update     $update,
+        public BotContext $botContext
     )
     {
-        echo "#1 i generated as private conversation handler\n";
     }
 
     public function load(): ConversationModel
     {
 
-        return $this->conversation ?? $this->conversation = ConversationModel::with([
-            "private" => ["meta"]
-        ])->where([
-            'chat_id' => $this->chat->id,
-            "chat_type" => $this->chat->type
-        ])->firstOr(fn() => $this->createNewPrivateConversation());
+        return $this->conversation ??
+            $this->conversation = $this->botContext->conversation = ConversationModel::with([
+                "private" => ["meta"]
+            ])->where([
+                'chat_id' => $this->chat->id,
+                "chat_type" => $this->chat->type
+            ])->firstOr(fn() => $this->createNewPrivateConversation());
     }
 
     private function createNewPrivateConversation(): void

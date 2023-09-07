@@ -10,6 +10,7 @@ use App\BotServices\Enums\ChatType;
 use App\BotServices\Enums\UpdateType;
 use App\BotServices\UpdateHandlers\CallbackQueryHandler;
 use App\BotServices\UpdateHandlers\ChannelPostHandler;
+use App\BotServices\UpdateHandlers\ChatJoinRequest;
 use App\BotServices\UpdateHandlers\ChatMemberHandler;
 use App\BotServices\UpdateHandlers\ChosenInlineResultHandler;
 use App\BotServices\UpdateHandlers\EditedChannelPostHandler;
@@ -29,7 +30,7 @@ use Longman\TelegramBot\Telegram;
 class BotContext
 {
 
-    public UpdateHandlerInterface $updateHandler;
+    public ?UpdateHandlerInterface $updateHandler;
     public ?ConversationHandlerInterface $conversationHandler;
     public ?Conversation $conversation;
 
@@ -38,15 +39,11 @@ class BotContext
         public Update   $update
     )
     {
-        $this->updateHandler();
-        $this->conversationHandler();
-        $this->conversationModel();
-
     }
 
     public function updateHandler(): UpdateHandlerInterface
     {
-        return $this->updateHandler = match ($this->update->getUpdateType()) {
+        return $this->updateHandler ?? $this->updateHandler = match ($this->update->getUpdateType()) {
             UpdateType::Message->value => app(MessageHandler::class),
             UpdateType::CallbackQuery->value => app(CallbackQueryHandler::class),
             UpdateType::EditedMessage->value => app(EditedMessageHandler::class),
@@ -60,6 +57,7 @@ class BotContext
             UpdateType::PollAnswer->value => app(PollAnswerHandler::class),
             UpdateType::MyChatMember->value => app(MyChatMemberHandler::class),
             UpdateType::ChatMember->value => app(ChatMemberHandler::class),
+            UpdateType::ChatJoinRequest->value => app(ChatJoinRequest::class),
             default => throw new \Exception('Unexpected match value: ' . $this->update->getUpdateType()),
         };
     }
@@ -72,7 +70,7 @@ class BotContext
         ];
 
         return $this->conversationHandler ?? $this->conversationHandler = match ($this->updateHandler->chatType()) {
-            ChatType::Private->value => app()->makeWith(PrivateConversationHandler::class, $args),
+            ChatType::Private->value, ChatType::Sender->value => app()->makeWith(PrivateConversationHandler::class, $args),
             ChatType::Group->value, ChatType::Supergroup->value => app()->makeWith(GroupConversationHandler::class, $args),
             ChatType::Channel->value => app()->makeWith(ChannelConversationHandler::class, $args),
         };

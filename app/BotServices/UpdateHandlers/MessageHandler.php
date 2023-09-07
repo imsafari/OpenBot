@@ -3,7 +3,6 @@
 namespace App\BotServices\UpdateHandlers;
 
 
-use App\BotServices\BotHandler;
 use App\BotServices\Chat;
 use App\BotServices\ConversationLayer\ConversationHandlerInterface;
 use App\BotServices\User;
@@ -22,6 +21,7 @@ class MessageHandler extends BaseHandler implements UpdateHandlerInterface
 
     public function chatType(): string
     {
+        //private or group or supergroup
         return $this->update->getMessage()->getChat()->getType();
     }
 

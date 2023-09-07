@@ -1,0 +1,554 @@
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "mamali": "salam"
+}
+
+
+### Channel Post
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934497,
+    "channel_post": {
+        "message_id": 33,
+        "author_signature": "» мr.мαнαɴ",
+        "sender_chat": {
+            "id": -1001948242822,
+            "title": "ai pair",
+            "username": "AIPair",
+            "type": "channel"
+        },
+        "chat": {
+            "id": -1001948242822,
+            "title": "ai pair",
+            "username": "AIPair",
+            "type": "channel"
+        },
+        "date": 1694010367,
+        "text": "av"
+    }
+}
+
+### Group Message
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934472,
+    "message": {
+        "message_id": 7,
+        "from": {
+            "id": 69221229,
+            "is_bot": false,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "language_code": "en",
+            "is_premium": true
+        },
+        "chat": {
+            "id": -652973741,
+            "title": "بک آپ",
+            "type": "group",
+            "all_members_are_administrators": true
+        },
+        "date": 1692372276,
+        "text": "salam"
+    }
+}
+
+### Private Message
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934476,
+    "message": {
+        "message_id": 9,
+        "from": {
+            "id": 69221229,
+            "is_bot": false,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "language_code": "en",
+            "is_premium": true
+        },
+        "chat": {
+            "id": 69221229,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "type": "private"
+        },
+        "date": 1692519408,
+        "text": "salam"
+    }
+}
+
+
+### Group Callback Query
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+  "update_id": 233934494,
+  "callback_query": {
+    "id": "297302917003253216",
+    "from": {
+      "id": 69221229,
+      "is_bot": false,
+      "first_name": "» мr.мαнαɴ",
+      "username": "adeveloper",
+      "language_code": "en",
+      "is_premium": true
+    },
+    "message": {
+      "message_id": 10,
+      "from": {
+        "id": 283598419,
+        "is_bot": true,
+        "first_name": "MihanAds",
+        "username": "MihanAds_bot"
+      },
+      "chat": {
+        "id": -652973741,
+        "title": "بک آپ",
+        "type": "group",
+        "all_members_are_administrators": true
+      },
+      "date": 1694009275,
+      "text": "salam",
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "👍",
+              "callback_data": "like"
+            },
+            {
+              "text": "👎",
+              "callback_data": "dislike"
+            }
+          ]
+        ]
+      }
+    },
+    "chat_instance": "-9218315841280465496",
+    "data": "like"
+  }
+}
+
+
+### Private Callback Query
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+  "update_id": 233934495,
+  "callback_query": {
+    "id": "297302915025246002",
+    "from": {
+      "id": 69221229,
+      "is_bot": false,
+      "first_name": "» мr.мαнαɴ",
+      "username": "adeveloper",
+      "language_code": "en",
+      "is_premium": true
+    },
+    "message": {
+      "message_id": 11,
+      "from": {
+        "id": 283598419,
+        "is_bot": true,
+        "first_name": "MihanAds",
+        "username": "MihanAds_bot"
+      },
+      "chat": {
+        "id": 69221229,
+        "first_name": "» мr.мαнαɴ",
+        "username": "adeveloper",
+        "type": "private"
+      },
+      "date": 1694009401,
+      "text": "salam",
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "👍",
+              "callback_data": "like"
+            },
+            {
+              "text": "👎",
+              "callback_data": "dislike"
+            }
+          ]
+        ]
+      }
+    },
+    "chat_instance": "3395431914904496086",
+    "data": "like"
+  }
+}
+
+### Channel Callback Query
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+  "update_id": 233934496,
+  "callback_query": {
+    "id": "297302914902771205",
+    "from": {
+      "id": 69221229,
+      "is_bot": false,
+      "first_name": "» мr.мαнαɴ",
+      "username": "adeveloper",
+      "language_code": "en",
+      "is_premium": true
+    },
+    "message": {
+      "message_id": 32,
+      "sender_chat": {
+        "id": -1001948242822,
+        "title": "ai pair",
+        "username": "AIPair",
+        "type": "channel"
+      },
+      "chat": {
+        "id": -1001948242822,
+        "title": "ai pair",
+        "username": "AIPair",
+        "type": "channel"
+      },
+      "date": 1694009492,
+      "text": "salam",
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "👍",
+              "callback_data": "like"
+            },
+            {
+              "text": "👎",
+              "callback_data": "dislike"
+            }
+          ]
+        ]
+      }
+    },
+    "chat_instance": "-6040330895431979649",
+    "data": "like"
+  }
+}
+
+
+### Private Edited Message
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934501,
+    "edited_message": {
+        "message_id": 12,
+        "from": {
+            "id": 69221229,
+            "is_bot": false,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "language_code": "en",
+            "is_premium": true
+        },
+        "chat": {
+            "id": 69221229,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "type": "private"
+        },
+        "date": 1694018480,
+        "edit_date": 1694018498,
+        "text": "salam"
+    }
+}
+
+### Group Edited Message
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934503,
+    "edited_message": {
+        "message_id": 13,
+        "from": {
+            "id": 69221229,
+            "is_bot": false,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "language_code": "en",
+            "is_premium": true
+        },
+        "chat": {
+            "id": -652973741,
+            "title": "بک آپ",
+            "type": "group",
+            "all_members_are_administrators": true
+        },
+        "date": 1694018848,
+        "edit_date": 1694018852,
+        "text": "bye"
+    }
+}
+
+### Edited Channel Post
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934504,
+    "edited_channel_post": {
+        "message_id": 34,
+        "sender_chat": {
+            "id": -1001948242822,
+            "title": "ai pair",
+            "username": "AIPair",
+            "type": "channel"
+        },
+        "chat": {
+            "id": -1001948242822,
+            "title": "ai pair",
+            "username": "AIPair",
+            "type": "channel"
+        },
+        "date": 1694010458,
+        "edit_date": 1694018914,
+        "text": "no one"
+    }
+}
+
+### Inline Query
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934507,
+    "inline_query": {
+        "id": "297302916157850912",
+        "from": {
+            "id": 69221229,
+            "is_bot": false,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "language_code": "en",
+            "is_premium": true
+        },
+        "chat_type": "sender",
+        "query": "a",
+        "offset": ""
+    }
+}
+
+### My Chat Member Private Restart
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934525,
+    "my_chat_member": {
+        "chat": {
+            "id": 69221229,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "type": "private"
+        },
+        "from": {
+            "id": 69221229,
+            "is_bot": false,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "language_code": "en",
+            "is_premium": true
+        },
+        "date": 1694114298,
+        "old_chat_member": {
+            "user": {
+                "id": 283598419,
+                "is_bot": true,
+                "first_name": "MihanAds",
+                "username": "MihanAds_bot"
+            },
+            "status": "kicked",
+            "until_date": 0
+        },
+        "new_chat_member": {
+            "user": {
+                "id": 283598419,
+                "is_bot": true,
+                "first_name": "MihanAds",
+                "username": "MihanAds_bot"
+            },
+            "status": "member"
+        }
+    }
+}
+
+
+### My Chat Member Private Block/Stop
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934524,
+    "my_chat_member": {
+        "chat": {
+            "id": 69221229,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "type": "private"
+        },
+        "from": {
+            "id": 69221229,
+            "is_bot": false,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "language_code": "en",
+            "is_premium": true
+        },
+        "date": 1694114280,
+        "old_chat_member": {
+            "user": {
+                "id": 283598419,
+                "is_bot": true,
+                "first_name": "MihanAds",
+                "username": "MihanAds_bot"
+            },
+            "status": "member"
+        },
+        "new_chat_member": {
+            "user": {
+                "id": 283598419,
+                "is_bot": true,
+                "first_name": "MihanAds",
+                "username": "MihanAds_bot"
+            },
+            "status": "kicked",
+            "until_date": 0
+        }
+    }
+}
+
+### My Chat Member Group Join
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934470,
+    "my_chat_member": {
+        "chat": {
+            "id": -652973741,
+            "title": "بک آپ",
+            "type": "group",
+            "all_members_are_administrators": true
+        },
+        "from": {
+            "id": 69221229,
+            "is_bot": false,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "language_code": "en",
+            "is_premium": true
+        },
+        "date": 1692371553,
+        "old_chat_member": {
+            "user": {
+                "id": 283598419,
+                "is_bot": true,
+                "first_name": "MihanAds",
+                "username": "MihanAds_bot"
+            },
+            "status": "left"
+        },
+        "new_chat_member": {
+            "user": {
+                "id": 283598419,
+                "is_bot": true,
+                "first_name": "MihanAds",
+                "username": "MihanAds_bot"
+            },
+            "status": "member"
+        }
+    }
+}
+
+### My Chat Member Channel Join as Admin
+POST http://localhost:8000/api/bot/username
+Content-Type: application/json
+Accept: application/json
+
+{
+    "update_id": 233934468,
+    "my_chat_member": {
+        "chat": {
+            "id": -1001948242822,
+            "title": "ai pair",
+            "username": "AIPair",
+            "type": "channel"
+        },
+        "from": {
+            "id": 69221229,
+            "is_bot": false,
+            "first_name": "» мr.мαнαɴ",
+            "username": "adeveloper",
+            "language_code": "en",
+            "is_premium": true
+        },
+        "date": 1692236404,
+        "old_chat_member": {
+            "user": {
+                "id": 283598419,
+                "is_bot": true,
+                "first_name": "MihanAds",
+                "username": "MihanAds_bot"
+            },
+            "status": "left"
+        },
+        "new_chat_member": {
+            "user": {
+                "id": 283598419,
+                "is_bot": true,
+                "first_name": "MihanAds",
+                "username": "MihanAds_bot"
+            },
+            "status": "administrator",
+            "can_be_edited": false,
+            "can_manage_chat": true,
+            "can_change_info": true,
+            "can_post_messages": true,
+            "can_edit_messages": true,
+            "can_delete_messages": true,
+            "can_invite_users": true,
+            "can_restrict_members": true,
+            "can_promote_members": false,
+            "can_manage_video_chats": true,
+            "is_anonymous": false,
+            "can_manage_voice_chats": true
+        }
+    }
+}
+
+

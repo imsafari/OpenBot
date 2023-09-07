@@ -2,25 +2,39 @@
 
 namespace App\BotServices\UpdateHandlers;
 
-use App\BotServices\ConversationLayer\ConversationManager;
-use App\BotServices\Enums\ChatType;
+use App\BotServices\Chat;
+use App\BotServices\ConversationLayer\ConversationHandlerInterface;
+use App\BotServices\User;
+use Illuminate\Support\Facades\App;
 use Longman\TelegramBot\Entities\Update;
 
-class PollHandler extends BaseHandler  implements UpdateHandlerInterface
+class PollHandler extends BaseHandler implements UpdateHandlerInterface
 {
     public function __construct(
-        public Update              $update
+        public Update $update,
     )
     {
     }
 
+
     public function chatType(): string
     {
-        return ChatType::Private->value;
+        //everywhere
+        return "";
+    }
+
+    public function getChat(): ?Chat
+    {
+        return null;
+    }
+
+    public function getUser(): ?User
+    {
+        return null;
     }
 
     public function doAction(): void
     {
-        // TODO: Implement doAction() method.
+        //todo: run poll responder
     }
 }
