@@ -45,9 +45,7 @@ class BotServiceProvider extends ServiceProvider
             return $app->make(BotContext::class)->conversationHandler();
         });
 
-        $this->app->singleton(StepContext::class, function (Application $app) {
-            return new StepContext();
-        });
+        $this->app->singleton(StepContext::class);
 
     }
 

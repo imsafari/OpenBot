@@ -8,14 +8,12 @@ use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
 use Longman\TelegramBot\Entities\Update;
 use Longman\TelegramBot\Request;
 
-class PrivateStartStep extends BaseStep implements StepInterface
+class PrivateMainMenuStep extends BaseStep implements StepInterface
 {
-    const StateName = PrivateState::Start->value;
-
+    const StateName = PrivateState::MainMenu->value;
     protected array $qualifications = [
-        "state" => PrivateState::Start->value,
+        "state" => PrivateState::MainMenu->value,
     ];
-
 
     public function __construct(
         public BotContext             $botContext,
@@ -29,17 +27,10 @@ class PrivateStartStep extends BaseStep implements StepInterface
     public function onMessage(): void
     {
         $user = $this->updateHandler->getUser();
-        $message = $this->update->getMessage();
-
-        if ($message->getText() == "/start") {
-            Request::sendMessage([
-                "chat_id" => $user->id,
-                "text" => __("bot/private.start"),
-            ]);
-
-            $this->botContext->conversation->state = PrivateState::MainMenu->value;
-            $this->context->setEnterState(PrivateState::MainMenu->value);
-        }
+        Request::sendMessage([
+            "chat_id" => $user->id,
+            "text" => __("bot/private.main"),
+        ]);
     }
 
     public function isQualified(): bool
@@ -52,4 +43,16 @@ class PrivateStartStep extends BaseStep implements StepInterface
         return true;
     }
 
+    public function onEnter(string $enterState): void
+    {
+        if ($enterState != PrivateState::MainMenu->value)
+            return;
+
+
+        Request::sendMessage([
+            "chat_id" => $this->updateHandler->getUser()->id,
+            "text" => __("bot/private.main"),
+        ]);
+
+    }
 }

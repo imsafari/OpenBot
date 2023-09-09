@@ -62,7 +62,6 @@ class MessageHandler extends BaseHandler implements UpdateHandlerInterface
         $conversationHandler->load();
 
         App::setLocale($conversationHandler->getLocale());
-
         $conversationHandler->runQualifiedSteps();
     }
 }

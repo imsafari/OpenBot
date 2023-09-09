@@ -4,21 +4,21 @@ namespace App\BotServices\ConversationLayer;
 
 use App\BotServices\Chat;
 use App\BotServices\ConversationLayer\ConversationSteps\StepContext;
-use App\BotServices\ConversationLayer\ConversationSteps\StepInterface;
 use App\BotServices\Enums\ChannelState;
 use App\BotServices\Enums\ChatType;
 use App\BotServices\Enums\GroupState;
 use App\BotServices\Enums\PrivateState;
-use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
 use App\BotServices\User;
-use Illuminate\Support\Facades\App;
+use Longman\TelegramBot\Entities\Update;
 
 abstract class Conversation
 {
-    public UpdateHandlerInterface $updateHandler;
 
+    public Update $update;
     public ?Chat $chat;
     public ?User $user;
+
+    abstract public function stepQueue(): array;
 
     public function initialState(): string
     {
@@ -29,25 +29,6 @@ abstract class Conversation
         };
     }
 
-
-    public function runQualifiedSteps(): void
-    {
-        $stepContext = app(StepContext::class);
-        $steps = $this->stepGenerator();
-
-        foreach ($steps as $step) {
-            if (App::call([$step, "isQualified"])) {
-
-                $step->handle();
-                $stepContext->newHandledStep($step);
-
-                if (!$stepContext->shouldContinue()) {
-                    break;
-                }
-            }
-        }
-    }
-
     private function stepGenerator(): \Generator
     {
         foreach ($this->stepQueue() as $step) {
@@ -55,7 +36,24 @@ abstract class Conversation
         }
     }
 
-    abstract public function stepQueue(): array;
+    public function runQualifiedSteps(): void
+    {
+        $stepContext = app(StepContext::class);
+        $steps = $this->stepGenerator();
+
+        foreach ($steps as $step) {
+
+            $stepContext->handleStep($step);
+
+            if ($stepContext->shouldStop()) {
+                break;
+            }
+        }
+
+        if ($stepContext->shouldEnterState())
+            $stepContext->handleStateEnter();
+
+    }
 
     public function getLocale(): string
     {

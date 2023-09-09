@@ -4,6 +4,9 @@ namespace App\BotServices\ConversationLayer;
 
 use App\BotServices\BotContext;
 use App\BotServices\Chat;
+use App\BotServices\ConversationLayer\ConversationSteps\ConversationFinisherStep;
+use App\BotServices\ConversationLayer\ConversationSteps\ConversationStarterStep;
+use App\BotServices\ConversationLayer\ConversationSteps\PrivateMainMenuStep;
 use App\BotServices\ConversationLayer\ConversationSteps\PrivateStartStep;
 use App\BotServices\Enums\MetaKeys;
 use App\BotServices\User;
@@ -14,8 +17,12 @@ use Longman\TelegramBot\Entities\Update;
 class PrivateConversationHandler extends Conversation implements ConversationHandlerInterface
 {
     private array $stepQueue = [
-        PrivateStartStep::class
+        ConversationStarterStep::class,
 
+        PrivateStartStep::class,
+        PrivateMainMenuStep::class,
+
+        ConversationFinisherStep::class,
     ];
 
     public ?ConversationModel $conversation = null;
@@ -31,7 +38,6 @@ class PrivateConversationHandler extends Conversation implements ConversationHan
 
     public function load(): ConversationModel
     {
-
         return $this->conversation ??
             $this->conversation = $this->botContext->conversation = ConversationModel::with([
                 "private" => ["meta"]
@@ -41,7 +47,7 @@ class PrivateConversationHandler extends Conversation implements ConversationHan
             ])->firstOr(fn() => $this->createNewPrivateConversation());
     }
 
-    private function createNewPrivateConversation(): void
+    private function createNewPrivateConversation(): ConversationModel
     {
         DB::transaction(function () {
             $this->conversation = ConversationModel::create([
@@ -66,6 +72,7 @@ class PrivateConversationHandler extends Conversation implements ConversationHan
             ]);
         });
 
+        return $this->conversation;
     }
 
     public function stepQueue(): array

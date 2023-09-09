@@ -9,12 +9,12 @@ use App\BotServices\Enums\PrivateState;
 class SimpleStep extends BaseStep implements StepInterface
 {
     protected array $qualifications = [
-        "chat_type" => ChatType::Private,
-        "step" => PrivateState::Start,
+        "chat_type" => ChatType::Private->value,
+        "state" => PrivateState::Start->value,
         "auth" => ["user"],
     ];
 
-    public function isQualified(ConversationHandlerInterface $conversation): bool
+    public function isQualified(): bool
     {
         return true;
     }

@@ -86,7 +86,7 @@ Accept: application/json
             "type": "private"
         },
         "date": 1692519408,
-        "text": "salam"
+        "text": "/start"
     }
 }
 

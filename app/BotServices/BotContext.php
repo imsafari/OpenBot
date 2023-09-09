@@ -32,7 +32,7 @@ class BotContext
 
     public ?UpdateHandlerInterface $updateHandler;
     public ?ConversationHandlerInterface $conversationHandler;
-    public ?Conversation $conversation;
+    public Conversation $conversation;
 
     public function __construct(
         public Telegram $telegram,

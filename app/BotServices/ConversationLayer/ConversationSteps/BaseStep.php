@@ -8,7 +8,7 @@ abstract class BaseStep
 {
     protected array $qualifications = [
         "chat_type" => null, // null|true|empty mean for every chat type
-        "step" => null, // null|true|empty mean for every step
+        "state" => null, // null|true|empty mean for every step
         //"auth" => ["user"], // allowed tg user types or null|true|empty for everyone+
         //one of user meta
         //one of conversation meta
@@ -27,5 +27,33 @@ abstract class BaseStep
     public function isQualified(): bool
     {
         return false;
+    }
+
+    public function handle(): void
+    {
+    }
+
+    public function onMessage(): void
+    {
+    }
+
+    public function onCallbackQuery(): void
+    {
+    }
+
+    public function onEditedMessage(): void
+    {
+    }
+
+    public function onChannelPost(): void
+    {
+    }
+
+    public function onEditedChannelPost(): void
+    {
+    }
+
+    public function onEnter(string $enterState): void
+    {
     }
 }
