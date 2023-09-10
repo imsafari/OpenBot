@@ -56,11 +56,6 @@ class EditedMessageHandler extends BaseHandler  implements UpdateHandlerInterfac
 
     public function doAction(): void
     {
-        $conversationHandler = app(ConversationHandlerInterface::class);
-        $conversationHandler->load();
-
-        App::setLocale($conversationHandler->getLocale());
-
-        $conversationHandler->runQualifiedSteps();
+        //todo: run edit message responder
     }
 }

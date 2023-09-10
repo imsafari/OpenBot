@@ -12,6 +12,7 @@ class Group extends Model
     use HasFactory;
 
     protected $fillable = [
+        "chat_id",
         "title",
         "username",
         "is_supergroup",

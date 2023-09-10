@@ -12,6 +12,7 @@ class Channel extends Model
     use HasFactory;
 
     protected $fillable = [
+        "chat_id",
         "title",
         "username",
     ];

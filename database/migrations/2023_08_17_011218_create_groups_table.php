@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('conversation_id')->index();
             $table->string("title");
             $table->string("username")->nullable();
-            $table->boolean("is_supergroup");
+            $table->boolean("is_supergroup")->default(false);
             $table->boolean("is_forum")->default(false);
             $table->timestamps();
 
