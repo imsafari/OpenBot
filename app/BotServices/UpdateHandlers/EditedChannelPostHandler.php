@@ -45,11 +45,6 @@ class EditedChannelPostHandler extends BaseHandler  implements UpdateHandlerInte
 
     public function doAction(): void
     {
-        $conversationHandler = app(ConversationHandlerInterface::class);
-        $conversationHandler->load();
-
-        App::setLocale($conversationHandler->getLocale());
-
-        $conversationHandler->runQualifiedSteps();
+        //todo: run edit channel post responder
     }
 }
