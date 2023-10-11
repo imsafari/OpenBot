@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Longman\TelegramBot\Entities\Update;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -21,12 +23,12 @@ class VerifyTelegramWebhook
             throw new HttpException(500, "invalid json format");
         }
 
-        //todo: update id must not be duplicate from cache update ids pool
-        //todo: this will checks only on production environment
-//        if (Cache::has("update_id_{$update->getUpdateId()}")) {
-//            throw new HttpException(200, "duplicate update id");
-//        }
+        $update = app(Update::class);
+        if (Cache::has("update_id_{$update->getUpdateId()}")) {
+            throw new HttpException(200, "duplicate update id");
+        }
 
+        Cache::set("update_id_{$update->getUpdateId()}", true, 60 * 60 * 24);
         return $next($request);
     }
 }
