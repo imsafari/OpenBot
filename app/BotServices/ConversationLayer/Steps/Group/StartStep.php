@@ -1,21 +1,22 @@
 <?php
 
-namespace App\BotServices\ConversationLayer\ConversationSteps;
+namespace App\BotServices\ConversationLayer\Steps\Group;
 
 use App\BotServices\BotContext;
-use App\BotServices\Enums\ChannelState;
+use App\BotServices\ConversationLayer\Steps\BaseStep;
+use App\BotServices\ConversationLayer\Steps\StepContext;
+use App\BotServices\ConversationLayer\Steps\StepInterface;
 use App\BotServices\Enums\GroupState;
-use App\BotServices\Enums\PrivateState;
 use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
 use Longman\TelegramBot\Entities\Update;
 use Longman\TelegramBot\Request;
 
-class ChannelStartStep extends BaseStep implements StepInterface
+class StartStep extends BaseStep implements StepInterface
 {
-    const StateName = ChannelState::Start->value;
+    const StateName = GroupState::Start->value;
 
     protected array $qualifications = [
-        "state" => ChannelState::Start->value,
+        "state" => GroupState::Start->value,
     ];
 
 
@@ -32,7 +33,7 @@ class ChannelStartStep extends BaseStep implements StepInterface
     {
         Request::sendMessage([
             "chat_id" => $this->updateHandler->getChat()->id,
-            "text" => __("bot/channel.start"),
+            "text" => __("bot/group.start"),
         ]);
     }
 

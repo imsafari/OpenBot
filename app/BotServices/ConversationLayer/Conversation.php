@@ -3,7 +3,7 @@
 namespace App\BotServices\ConversationLayer;
 
 use App\BotServices\Chat;
-use App\BotServices\ConversationLayer\ConversationSteps\StepContext;
+use App\BotServices\ConversationLayer\Steps\StepContext;
 use App\BotServices\Enums\ChannelState;
 use App\BotServices\Enums\ChatType;
 use App\BotServices\Enums\GroupState;

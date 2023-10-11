@@ -2,27 +2,27 @@
 
 namespace App\BotServices\ConversationLayer;
 
-
 use App\BotServices\BotContext;
 use App\BotServices\Chat;
-use App\BotServices\ConversationLayer\ConversationSteps\ConversationFinisherStep;
-use App\BotServices\ConversationLayer\ConversationSteps\ConversationStarterStep;
-use App\BotServices\ConversationLayer\ConversationSteps\GroupStartStep;
+use App\BotServices\ConversationLayer\Steps\FinisherStep;
+use App\BotServices\ConversationLayer\Steps\StarterStep;
+use App\BotServices\ConversationLayer\Steps\Private\MainMenuStep;
+use App\BotServices\ConversationLayer\Steps\Private\StartStep;
 use App\BotServices\Enums\MetaKeys;
 use App\BotServices\User;
 use App\Models\Conversation as ConversationModel;
 use Illuminate\Support\Facades\DB;
 use Longman\TelegramBot\Entities\Update;
 
-class GroupConversationHandler extends Conversation implements ConversationHandlerInterface
+class PrivateHandler extends Conversation implements ConversationHandlerInterface
 {
-
     private array $stepQueue = [
-        ConversationStarterStep::class,
+        StarterStep::class,
 
-        GroupStartStep::class,
+        StartStep::class,
+        MainMenuStep::class,
 
-        ConversationFinisherStep::class,
+        FinisherStep::class,
     ];
 
     public ?ConversationModel $conversation = null;
@@ -40,14 +40,14 @@ class GroupConversationHandler extends Conversation implements ConversationHandl
     {
         return $this->conversation ??
             $this->conversation = $this->botContext->conversation = ConversationModel::with([
-                "group" => ["meta"]
+                "private" => ["meta"]
             ])->where([
                 'chat_id' => $this->chat->id,
                 "chat_type" => $this->chat->type
-            ])->firstOr(fn() => $this->createNewGroupConversation());
+            ])->firstOr(fn() => $this->createNewPrivateConversation());
     }
 
-    private function createNewGroupConversation(): ConversationModel
+    private function createNewPrivateConversation(): ConversationModel
     {
         DB::transaction(function () {
             $this->conversation = ConversationModel::create([
@@ -59,14 +59,15 @@ class GroupConversationHandler extends Conversation implements ConversationHandl
                 "last_message_id" => $this->chat->message_id,
             ]);
 
-            $this->conversation->group()->create([
-                "chat_id" => $this->chat->id,
-                "title" => $this->chat->parseTitle(),
-                "username" => $this->chat->username,
-                "is_supergroup" => $this->chat->type == "supergroup",
+            $this->conversation->private()->create([
+                "chat_id" => $this->user->id,
+                "first_name" => $this->user->first_name,
+                "last_name" => $this->user->last_name,
+                "username" => $this->user->username,
+                "language_code" => $this->user->language_code ?? "en",
             ]);
 
-            $this->conversation->group->meta()->createMany([
+            $this->conversation->private->meta()->createMany([
                 ["property" => MetaKeys::LanguageCode, "content" => $this->user->language_code ?? "en"]
             ]);
         });
@@ -82,9 +83,9 @@ class GroupConversationHandler extends Conversation implements ConversationHandl
 
     public function getLocale(): string
     {
-        return $this->conversation->group->meta->where("property", MetaKeys::LanguageCode) ?? "en";
+        return $this->conversation->private->meta->where("property", MetaKeys::LanguageCode) ?? "en";
     }
 
     //todo:         $this->conversation->last_message_id = $this->chat->message_id;
-
 }
+

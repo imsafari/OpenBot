@@ -1,22 +1,22 @@
 <?php
 
-namespace App\BotServices\ConversationLayer\ConversationSteps;
+namespace App\BotServices\ConversationLayer\Steps\Private;
 
 use App\BotServices\BotContext;
-use App\BotServices\Enums\GroupState;
+use App\BotServices\ConversationLayer\Steps\BaseStep;
+use App\BotServices\ConversationLayer\Steps\StepContext;
+use App\BotServices\ConversationLayer\Steps\StepInterface;
 use App\BotServices\Enums\PrivateState;
 use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
 use Longman\TelegramBot\Entities\Update;
 use Longman\TelegramBot\Request;
 
-class GroupStartStep extends BaseStep implements StepInterface
+class MainMenuStep extends BaseStep implements StepInterface
 {
-    const StateName = GroupState::Start->value;
-
+    const StateName = PrivateState::MainMenu->value;
     protected array $qualifications = [
-        "state" => GroupState::Start->value,
+        "state" => PrivateState::MainMenu->value,
     ];
-
 
     public function __construct(
         public BotContext             $botContext,
@@ -29,9 +29,10 @@ class GroupStartStep extends BaseStep implements StepInterface
 
     public function onMessage(): void
     {
+        $user = $this->updateHandler->getUser();
         Request::sendMessage([
-            "chat_id" => $this->updateHandler->getChat()->id,
-            "text" => __("bot/group.start"),
+            "chat_id" => $user->id,
+            "text" => __("bot/private.main"),
         ]);
     }
 
@@ -45,4 +46,16 @@ class GroupStartStep extends BaseStep implements StepInterface
         return true;
     }
 
+    public function onEnter(string $enterState): void
+    {
+        if ($enterState != self::StateName)
+            return;
+
+
+        Request::sendMessage([
+            "chat_id" => $this->updateHandler->getUser()->id,
+            "text" => __("bot/private.main"),
+        ]);
+
+    }
 }

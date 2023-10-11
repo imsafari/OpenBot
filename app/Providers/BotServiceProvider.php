@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\BotServices\BotContext;
 use App\BotServices\ConversationLayer\ConversationHandlerInterface;
-use App\BotServices\ConversationLayer\ConversationSteps\StepContext;
+use App\BotServices\ConversationLayer\Steps\StepContext;
 use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\BotServices\ConversationLayer\ConversationSteps;
+namespace App\BotServices\ConversationLayer\Steps;
 
 use App\BotServices\BotContext;
 use App\BotServices\Enums\ConversationState;
 use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
 use Longman\TelegramBot\Entities\Update;
 
-class ConversationStarterStep extends BaseStep implements StepInterface
+class StarterStep extends BaseStep implements StepInterface
 {
     protected array $qualifications = [
         "step" => ConversationState::Starter->value,

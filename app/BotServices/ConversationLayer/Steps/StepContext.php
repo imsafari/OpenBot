@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BotServices\ConversationLayer\ConversationSteps;
+namespace App\BotServices\ConversationLayer\Steps;
 
 use App\BotServices\BotContext;
 use Illuminate\Support\Facades\App;
@@ -28,7 +28,7 @@ class StepContext
     {
         $this->handledSteps[] = $step;
 
-        //TODO: check if step has entrance method, add to list of steps has entrance
+        //check if step has entrance method, add to list of steps has entrance
         if (method_exists($step, "onEnter")) {
             $this->enterableSteps[] = fn() => App::call(
                 [$step, "onEnter"],

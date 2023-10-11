@@ -2,10 +2,10 @@
 
 namespace App\BotServices;
 
-use App\BotServices\ConversationLayer\ChannelConversationHandler;
+use App\BotServices\ConversationLayer\ChannelHandler;
 use App\BotServices\ConversationLayer\ConversationHandlerInterface;
-use App\BotServices\ConversationLayer\GroupConversationHandler;
-use App\BotServices\ConversationLayer\PrivateConversationHandler;
+use App\BotServices\ConversationLayer\GroupHandler;
+use App\BotServices\ConversationLayer\PrivateHandler;
 use App\BotServices\Enums\ChatType;
 use App\BotServices\Enums\UpdateType;
 use App\BotServices\UpdateHandlers\CallbackQueryHandler;
@@ -70,9 +70,9 @@ class BotContext
         ];
 
         return $this->conversationHandler ?? $this->conversationHandler = match ($this->updateHandler->chatType()) {
-            ChatType::Private->value, ChatType::Sender->value => app()->makeWith(PrivateConversationHandler::class, $args),
-            ChatType::Group->value, ChatType::Supergroup->value => app()->makeWith(GroupConversationHandler::class, $args),
-            ChatType::Channel->value => app()->makeWith(ChannelConversationHandler::class, $args),
+            ChatType::Private->value, ChatType::Sender->value => app()->makeWith(PrivateHandler::class, $args),
+            ChatType::Group->value, ChatType::Supergroup->value => app()->makeWith(GroupHandler::class, $args),
+            ChatType::Channel->value => app()->makeWith(ChannelHandler::class, $args),
         };
     }
 
