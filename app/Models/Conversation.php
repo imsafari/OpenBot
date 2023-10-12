@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
@@ -40,6 +41,11 @@ class Conversation extends Model
     public function chat(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function meta(): HasMany
+    {
+        return $this->hasMany(ConversationMeta::class);
     }
 
 }
