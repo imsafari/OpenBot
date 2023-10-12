@@ -61,8 +61,16 @@ abstract class Conversation
 
     }
 
-    public function getLocale(): string
+    public function getMeta(string $key, string $default = ""): string
     {
-        return "fa";
+        return $this->conversation->meta->where("property", $key)->first()?->content ?? $default;
+    }
+
+    public function setMeta(string $key, string $value): bool
+    {
+        return (bool)$this->conversation->meta()->updateOrCreate(
+            ["property" => $key],
+            ["content" => $value]
+        );
     }
 }

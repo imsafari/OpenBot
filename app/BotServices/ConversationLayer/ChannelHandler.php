@@ -5,9 +5,6 @@ namespace App\BotServices\ConversationLayer;
 
 use App\BotServices\BotContext;
 use App\BotServices\Chat;
-use App\BotServices\ConversationLayer\Steps\Channel\StartStep;
-use App\BotServices\ConversationLayer\Steps\FinisherStep;
-use App\BotServices\ConversationLayer\Steps\StarterStep;
 use App\BotServices\Enums\MetaKeys;
 use App\Models\Conversation as ConversationModel;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +30,8 @@ class ChannelHandler extends Conversation implements ConversationHandlerInterfac
     {
         return $this->conversation ??
             $this->conversation = $this->botContext->conversation = ConversationModel::with([
-                "channel" => ["meta"]
+                "channel",
+                "meta"
             ])->where([
                 'chat_id' => $this->chat->id,
                 "chat_type" => $this->chat->type
@@ -58,7 +56,7 @@ class ChannelHandler extends Conversation implements ConversationHandlerInterfac
                 "username" => $this->chat->username,
             ]);
 
-            $this->conversation->channel->meta()->createMany([
+            $this->conversation->meta()->createMany([
                 ["property" => MetaKeys::LanguageCode, "content" => "fa"]
             ]);
         });
@@ -69,19 +67,6 @@ class ChannelHandler extends Conversation implements ConversationHandlerInterfac
     public function stepQueue(): array
     {
         return $this->stepQueue;
-    }
-
-    public function getMeta(string $key, string $default = ""): string
-    {
-        return $this->conversation->channel->meta->where("property", $key)->first()?->content ?? $default;
-    }
-
-    public function setMeta(string $key, string $value): bool
-    {
-        return (bool)$this->conversation->channel->meta()->updateOrCreate(
-            ["property" => $key],
-            ["content" => $value]
-        );
     }
 
 }

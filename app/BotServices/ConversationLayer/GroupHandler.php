@@ -5,9 +5,6 @@ namespace App\BotServices\ConversationLayer;
 
 use App\BotServices\BotContext;
 use App\BotServices\Chat;
-use App\BotServices\ConversationLayer\Steps\FinisherStep;
-use App\BotServices\ConversationLayer\Steps\StarterStep;
-use App\BotServices\ConversationLayer\Steps\Group\StartStep;
 use App\BotServices\Enums\MetaKeys;
 use App\BotServices\User;
 use App\Models\Conversation as ConversationModel;
@@ -35,7 +32,8 @@ class GroupHandler extends Conversation implements ConversationHandlerInterface
     {
         return $this->conversation ??
             $this->conversation = $this->botContext->conversation = ConversationModel::with([
-                "group" => ["meta"]
+                "group",
+                "meta"
             ])->where([
                 'chat_id' => $this->chat->id,
                 "chat_type" => $this->chat->type
@@ -61,7 +59,7 @@ class GroupHandler extends Conversation implements ConversationHandlerInterface
                 "is_supergroup" => $this->chat->type == "supergroup",
             ]);
 
-            $this->conversation->group->meta()->createMany([
+            $this->conversation->meta()->createMany([
                 ["property" => MetaKeys::LanguageCode, "content" => $this->user->language_code ?? "fa"]
             ]);
         });
@@ -74,16 +72,4 @@ class GroupHandler extends Conversation implements ConversationHandlerInterface
         return $this->stepQueue;
     }
 
-    public function getMeta(string $key, string $default = ""): string
-    {
-        return $this->conversation->group->meta->where("property", $key)->first()?->content ?? $default;
-    }
-
-    public function setMeta(string $key, string $value): bool
-    {
-        return (bool)$this->conversation->group->meta()->updateOrCreate(
-            ["property" => $key],
-            ["content" => $value]
-        );
-    }
 }

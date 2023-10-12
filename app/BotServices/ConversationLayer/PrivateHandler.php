@@ -34,7 +34,8 @@ class PrivateHandler extends Conversation implements ConversationHandlerInterfac
     {
         return $this->conversation ??
             $this->conversation = $this->botContext->conversation = ConversationModel::with([
-                "private" => ["meta"]
+                "private",
+                "meta"
             ])->where([
                 'chat_id' => $this->chat->id,
                 "chat_type" => $this->chat->type
@@ -61,7 +62,7 @@ class PrivateHandler extends Conversation implements ConversationHandlerInterfac
                 "language_code" => $this->user->language_code ?? "en",
             ]);
 
-            $this->conversation->private->meta()->createMany([
+            $this->conversation->meta()->createMany([
                 ["property" => MetaKeys::LanguageCode, "content" => $this->user->language_code ?? "fa"],
             ]);
         });
@@ -74,17 +75,5 @@ class PrivateHandler extends Conversation implements ConversationHandlerInterfac
         return $this->stepQueue;
     }
 
-    public function getMeta(string $key, string $default = ""): string
-    {
-        return $this->conversation->private->meta->where("property", $key)->first()?->content ?? $default;
-    }
-
-    public function setMeta(string $key, string $value): bool
-    {
-        return (bool)$this->conversation->private->meta()->updateOrCreate(
-            ["property" => $key],
-            ["content" => $value]
-        );
-    }
 }
 
