@@ -23,7 +23,7 @@ class FinisherStep extends BaseStep implements StepInterface
     {
     }
 
-    public function onMessage(): void
+    public function handle(): void
     {
         if ($this->botContext->conversation->isDirty()) {
             $this->botContext->conversation->save();

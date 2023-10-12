@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->text("description")->nullable();
             $table->timestamps();
 
-            $table->foreign('tg_user_id')->references('id')->on('tgusers')->onDelete('cascade');
+            $table->foreign('tg_user_id')->references('id')->on('tg_users')->onDelete('cascade');
         });
     }
 

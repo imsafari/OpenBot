@@ -18,11 +18,6 @@ class GroupHandler extends Conversation implements ConversationHandlerInterface
 {
 
     private array $stepQueue = [
-        StarterStep::class,
-
-        StartStep::class,
-
-        FinisherStep::class,
     ];
 
     public ?ConversationModel $conversation = null;
@@ -67,7 +62,7 @@ class GroupHandler extends Conversation implements ConversationHandlerInterface
             ]);
 
             $this->conversation->group->meta()->createMany([
-                ["property" => MetaKeys::LanguageCode, "content" => $this->user->language_code ?? "en"]
+                ["property" => MetaKeys::LanguageCode, "content" => $this->user->language_code ?? "fa"]
             ]);
         });
 
@@ -82,7 +77,7 @@ class GroupHandler extends Conversation implements ConversationHandlerInterface
 
     public function getLocale(): string
     {
-        return $this->conversation->group->meta->where("property", MetaKeys::LanguageCode) ?? "en";
+        return $this->conversation->private->meta->where("property", MetaKeys::LanguageCode)->first()?->content ?? "fa";
     }
 
     //todo:         $this->conversation->last_message_id = $this->chat->message_id;

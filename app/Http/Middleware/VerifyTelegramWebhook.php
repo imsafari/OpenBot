@@ -23,12 +23,21 @@ class VerifyTelegramWebhook
             throw new HttpException(500, "invalid json format");
         }
 
+        if (app()->isProduction()) {
+            $this->activeUpdateIdCache();
+        }
+
+        return $next($request);
+    }
+
+    public function activeUpdateIdCache(): void
+    {
         $update = app(Update::class);
         if (Cache::has("update_id_{$update->getUpdateId()}")) {
             throw new HttpException(200, "duplicate update id");
         }
 
         Cache::set("update_id_{$update->getUpdateId()}", true, 60 * 60 * 24);
-        return $next($request);
+
     }
 }

@@ -3,6 +3,8 @@
 namespace App\BotServices\ConversationLayer;
 
 use App\BotServices\Chat;
+use App\BotServices\ConversationLayer\Steps\FinisherStep;
+use App\BotServices\ConversationLayer\Steps\StarterStep;
 use App\BotServices\ConversationLayer\Steps\StepContext;
 use App\BotServices\Enums\ChannelState;
 use App\BotServices\Enums\ChatType;
@@ -31,9 +33,13 @@ abstract class Conversation
 
     private function stepGenerator(): \Generator
     {
+        yield app(StarterStep::class);
+
         foreach ($this->stepQueue() as $step) {
             yield app($step);
         }
+
+        yield app(FinisherStep::class);
     }
 
     public function runQualifiedSteps(): void
@@ -57,6 +63,6 @@ abstract class Conversation
 
     public function getLocale(): string
     {
-        return "en";
+        return "fa";
     }
 }

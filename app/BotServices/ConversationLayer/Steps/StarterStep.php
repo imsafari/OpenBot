@@ -23,7 +23,7 @@ class StarterStep extends BaseStep implements StepInterface
     {
     }
 
-    public function onMessage(): void
+    public function handle(): void
     {
     }
 

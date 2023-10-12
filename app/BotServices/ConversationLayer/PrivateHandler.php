@@ -4,8 +4,6 @@ namespace App\BotServices\ConversationLayer;
 
 use App\BotServices\BotContext;
 use App\BotServices\Chat;
-use App\BotServices\ConversationLayer\Steps\FinisherStep;
-use App\BotServices\ConversationLayer\Steps\StarterStep;
 use App\BotServices\ConversationLayer\Steps\Private\MainMenuStep;
 use App\BotServices\ConversationLayer\Steps\Private\StartStep;
 use App\BotServices\Enums\MetaKeys;
@@ -17,12 +15,8 @@ use Longman\TelegramBot\Entities\Update;
 class PrivateHandler extends Conversation implements ConversationHandlerInterface
 {
     private array $stepQueue = [
-        StarterStep::class,
-
         StartStep::class,
         MainMenuStep::class,
-
-        FinisherStep::class,
     ];
 
     public ?ConversationModel $conversation = null;
@@ -68,7 +62,7 @@ class PrivateHandler extends Conversation implements ConversationHandlerInterfac
             ]);
 
             $this->conversation->private->meta()->createMany([
-                ["property" => MetaKeys::LanguageCode, "content" => $this->user->language_code ?? "en"]
+                ["property" => MetaKeys::LanguageCode, "content" => $this->user->language_code ?? "fa"],
             ]);
         });
 
@@ -83,7 +77,7 @@ class PrivateHandler extends Conversation implements ConversationHandlerInterfac
 
     public function getLocale(): string
     {
-        return $this->conversation->private->meta->where("property", MetaKeys::LanguageCode) ?? "en";
+        return $this->conversation->private->meta->where("property", MetaKeys::LanguageCode)->first()?->content ?? "fa";
     }
 
     //todo:         $this->conversation->last_message_id = $this->chat->message_id;

@@ -16,11 +16,7 @@ use Longman\TelegramBot\Entities\Update;
 class ChannelHandler extends Conversation implements ConversationHandlerInterface
 {
     private array $stepQueue = [
-        StarterStep::class,
 
-        StartStep::class,
-
-        FinisherStep::class,
     ];
 
     public ?ConversationModel $conversation = null;
@@ -63,7 +59,7 @@ class ChannelHandler extends Conversation implements ConversationHandlerInterfac
             ]);
 
             $this->conversation->channel->meta()->createMany([
-                ["property" => MetaKeys::LanguageCode, "content" => "en"]
+                ["property" => MetaKeys::LanguageCode, "content" => "fa"]
             ]);
         });
 
@@ -78,7 +74,7 @@ class ChannelHandler extends Conversation implements ConversationHandlerInterfac
 
     public function getLocale(): string
     {
-        return $this->conversation->channel->meta->where("property", MetaKeys::LanguageCode) ?? "en";
+        return $this->conversation->private->meta->where("property", MetaKeys::LanguageCode)->first()?->content ?? "fa";
     }
 
     //todo:         $this->conversation->last_message_id = $this->chat->message_id;
