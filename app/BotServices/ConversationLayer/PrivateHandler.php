@@ -59,7 +59,7 @@ class PrivateHandler extends Conversation implements ConversationHandlerInterfac
                 "first_name" => $this->user->first_name,
                 "last_name" => $this->user->last_name,
                 "username" => $this->user->username,
-                "language_code" => $this->user->language_code ?? "en",
+                "language_code" => $this->user->language_code ?? "fa",
             ]);
 
             $this->conversation->meta()->createMany([
