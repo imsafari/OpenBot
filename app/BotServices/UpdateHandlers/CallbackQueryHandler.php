@@ -4,6 +4,7 @@ namespace App\BotServices\UpdateHandlers;
 
 use App\BotServices\Chat;
 use App\BotServices\ConversationLayer\ConversationHandlerInterface;
+use App\BotServices\Enums\MetaKeys;
 use App\BotServices\User;
 use Illuminate\Support\Facades\App;
 use Longman\TelegramBot\Entities\Update;
@@ -60,7 +61,7 @@ class CallbackQueryHandler extends BaseHandler implements UpdateHandlerInterface
         $conversationHandler = app(ConversationHandlerInterface::class);
         $conversationHandler->load();
 
-        App::setLocale($conversationHandler->getLocale());
+        App::setLocale($conversationHandler->getMeta(MetaKeys::LanguageCode, "fa"));
 
         $conversationHandler->runQualifiedSteps();
     }

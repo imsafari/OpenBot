@@ -3,9 +3,11 @@
 namespace App\BotServices\ConversationLayer\Steps\Private;
 
 use App\BotServices\BotContext;
+use App\BotServices\ConversationLayer\ConversationHandlerInterface;
 use App\BotServices\ConversationLayer\Steps\BaseStep;
 use App\BotServices\ConversationLayer\Steps\StepContext;
 use App\BotServices\ConversationLayer\Steps\StepInterface;
+use App\BotServices\Enums\MetaKeys;
 use App\BotServices\Enums\PrivateState;
 use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
 use Longman\TelegramBot\Entities\Update;
@@ -35,13 +37,19 @@ class StartStep extends BaseStep implements StepInterface
         $message = $this->update->getMessage();
 
         if ($message->getText() == "/start") {
-            Request::sendMessage([
+            $result = Request::sendMessage([
                 "chat_id" => $user->id,
                 "text" => __("bot/private.start"),
             ]);
 
-            $this->botContext->conversation->state = PrivateState::MainMenu->value;
-            $this->context->setEnterState(PrivateState::MainMenu->value);
+            if ($result->getOk()) {
+                $this->botContext->conversation->last_message_id = $result->getResult()->message_id;
+
+//                app(ConversationHandlerInterface::class)
+//                    ->setMeta(MetaKeys::LastMessageID, $result->getResult()->message_id);
+            }
+
+            $this->nextStep(PrivateState::MainMenu->value);
         }
     }
 

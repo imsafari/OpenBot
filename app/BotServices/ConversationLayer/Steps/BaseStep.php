@@ -2,7 +2,7 @@
 
 namespace App\BotServices\ConversationLayer\Steps;
 
-use App\BotServices\ConversationLayer\ConversationHandlerInterface;
+use App\BotServices\BotContext;
 
 abstract class BaseStep
 {
@@ -55,5 +55,14 @@ abstract class BaseStep
 
     public function onEnter(string $enterState): void
     {
+    }
+
+    public function nextStep(string $step): void
+    {
+        $botContext = app(BotContext::class);
+        $stepContext = app(StepContext::class);
+
+        $botContext->conversation->state = $step;
+        $stepContext->setEnterState($step);
     }
 }

@@ -74,12 +74,16 @@ class GroupHandler extends Conversation implements ConversationHandlerInterface
         return $this->stepQueue;
     }
 
-
-    public function getLocale(): string
+    public function getMeta(string $key, string $default = ""): string
     {
-        return $this->conversation->private->meta->where("property", MetaKeys::LanguageCode)->first()?->content ?? "fa";
+        return $this->conversation->group->meta->where("property", $key)->first()?->content ?? $default;
     }
 
-    //todo:         $this->conversation->last_message_id = $this->chat->message_id;
-
+    public function setMeta(string $key, string $value): bool
+    {
+        return (bool)$this->conversation->group->meta()->updateOrCreate(
+            ["property" => $key],
+            ["content" => $value]
+        );
+    }
 }

@@ -12,6 +12,7 @@ interface ConversationHandlerInterface
 
     public function runQualifiedSteps(): void;
 
-    public function getLocale(): string;
+    public function getMeta(string $key, string $default): string;
 
+    public function setMeta(string $key, string $value): bool;
 }
