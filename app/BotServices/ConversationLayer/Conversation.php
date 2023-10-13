@@ -38,8 +38,6 @@ abstract class Conversation
         foreach ($this->stepQueue() as $step) {
             yield app($step);
         }
-
-        yield app(FinisherStep::class);
     }
 
     public function runQualifiedSteps(): void
@@ -59,6 +57,8 @@ abstract class Conversation
         if ($stepContext->shouldEnterState())
             $stepContext->handleStateEnter();
 
+        //run finisher step after all steps also entrances
+        $stepContext->handleStep(app(FinisherStep::class));
     }
 
     public function getMeta(string $key, string $default = ""): string
