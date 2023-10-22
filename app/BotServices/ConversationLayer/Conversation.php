@@ -33,8 +33,6 @@ abstract class Conversation
 
     private function stepGenerator(): \Generator
     {
-        yield app(StarterStep::class);
-
         foreach ($this->stepQueue() as $step) {
             yield app($step);
         }
@@ -43,8 +41,10 @@ abstract class Conversation
     public function runQualifiedSteps(): void
     {
         $stepContext = app(StepContext::class);
-        $steps = $this->stepGenerator();
 
+        $stepContext->handleStep(app(StarterStep::class));
+
+        $steps = $this->stepGenerator();
         foreach ($steps as $step) {
 
             $stepContext->handleStep($step);
