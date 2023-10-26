@@ -31,7 +31,7 @@ class ChosenInlineResultHandler extends BaseHandler  implements UpdateHandlerInt
         $from = $this->update->getChosenInlineResult()->getFrom();
 
         return new User(...[
-            "id" => $from->getId(),
+            "id" => (string)$from->getId(),
             "is_bot" => $from->getIsBot(),
             "first_name" => $from->getFirstName(),
             "last_name" => $from->getLastName(),

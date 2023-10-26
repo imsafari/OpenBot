@@ -28,7 +28,7 @@ class MyChatMemberHandler extends BaseHandler implements UpdateHandlerInterface
         $chatMember = $this->update->getMyChatMember();
 
         return new Chat(...[
-            "id" => $chatMember->getChat()->getId(),
+            "id" => (string)$chatMember->getChat()->getId(),
             "type" => $chatMember->getChat()->getType(),
             "title" => $chatMember->getChat()->getTitle(),
             "username" => $chatMember->getChat()->getUsername(),
@@ -43,7 +43,7 @@ class MyChatMemberHandler extends BaseHandler implements UpdateHandlerInterface
         $from = $this->update->getChatMember()->getFrom();
 
         return new User(...[
-            "id" => $from->getId(),
+            "id" => (string)$from->getId(),
             "is_bot" => $from->getIsBot(),
             "first_name" => $from->getFirstName(),
             "last_name" => $from->getLastName(),

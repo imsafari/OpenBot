@@ -28,7 +28,7 @@ class EditedChannelPostHandler extends BaseHandler  implements UpdateHandlerInte
         $message = $this->update->getEditedChannelPost();
 
         return new Chat(...[
-            "id" => $message->getChat()->getId(),
+            "id" => (string)$message->getChat()->getId(),
             "type" => $message->getChat()->getType(),
             "title" => $message->getChat()->getTitle(),
             "username" => $message->getChat()->getUsername(),

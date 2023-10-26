@@ -30,7 +30,7 @@ class CallbackQueryHandler extends BaseHandler implements UpdateHandlerInterface
         $message = $this->update->getCallbackQuery()->getMessage();
 
         return new Chat(...[
-            "id" => $message->getChat()->getId(),
+            "id" => (string)$message->getChat()->getId(),
             "type" => $message->getChat()->getType(),
             "title" => $message->getChat()->getTitle(),
             "username" => $message->getChat()->getUsername(),
@@ -45,7 +45,7 @@ class CallbackQueryHandler extends BaseHandler implements UpdateHandlerInterface
         $from = $this->update->getCallbackQuery()->getFrom();
 
         return new User(...[
-            "id" => $from->getId(),
+            "id" => (string)$from->getId(),
             "is_bot" => $from->getIsBot(),
             "first_name" => $from->getFirstName(),
             "last_name" => $from->getLastName(),

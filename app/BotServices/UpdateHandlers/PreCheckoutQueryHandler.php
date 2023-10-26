@@ -33,7 +33,7 @@ class PreCheckoutQueryHandler extends BaseHandler  implements UpdateHandlerInter
         $from = $this->update->getPreCheckoutQuery()->getFrom();
 
         return new User(...[
-            "id" => $from->getId(),
+            "id" => (string)$from->getId(),
             "is_bot" => $from->getIsBot(),
             "first_name" => $from->getFirstName(),
             "last_name" => $from->getLastName(),

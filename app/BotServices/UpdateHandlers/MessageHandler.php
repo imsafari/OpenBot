@@ -31,7 +31,7 @@ class MessageHandler extends BaseHandler implements UpdateHandlerInterface
         $message = $this->update->getMessage();
 
         return new Chat(...[
-            "id" => $message->getChat()->getId(),
+            "id" => (string)$message->getChat()->getId(),
             "type" => $message->getChat()->getType(),
             "title" => $message->getChat()->getTitle(),
             "username" => $message->getChat()->getUsername(),
@@ -46,7 +46,7 @@ class MessageHandler extends BaseHandler implements UpdateHandlerInterface
         $message = $this->update->getMessage();
 
         return new User(...[
-            "id" => $message->getFrom()->getId(),
+            "id" => (string)$message->getFrom()->getId(),
             "is_bot" => $message->getFrom()->getIsBot(),
             "first_name" => $message->getFrom()->getFirstName(),
             "last_name" => $message->getFrom()->getLastName(),

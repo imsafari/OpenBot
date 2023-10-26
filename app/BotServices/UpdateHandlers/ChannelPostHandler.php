@@ -29,7 +29,7 @@ class ChannelPostHandler extends BaseHandler implements UpdateHandlerInterface
         $message = $this->update->getChannelPost();
 
         return new Chat(...[
-            "id" => $message->getChat()->getId(),
+            "id" => (string)$message->getChat()->getId(),
             "type" => $message->getChat()->getType(),
             "title" => $message->getChat()->getTitle(),
             "username" => $message->getChat()->getUsername(),

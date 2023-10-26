@@ -28,7 +28,7 @@ class ChatJoinRequest extends BaseHandler implements UpdateHandlerInterface
         $chatJoinRequest = $this->update->getChatJoinRequest();
 
         return new Chat(...[
-            "id" => $chatJoinRequest->getChat()->getId(),
+            "id" => (string)$chatJoinRequest->getChat()->getId(),
             "type" => $chatJoinRequest->getChat()->getType(),
             "title" => $chatJoinRequest->getChat()->getTitle(),
             "username" => $chatJoinRequest->getChat()->getUsername(),
@@ -43,7 +43,7 @@ class ChatJoinRequest extends BaseHandler implements UpdateHandlerInterface
         $from = $this->update->getChatJoinRequest()->getFrom();
 
         return new User(...[
-            "id" => $from->getId(),
+            "id" => (string)$from->getId(),
             "is_bot" => $from->getIsBot(),
             "first_name" => $from->getFirstName(),
             "last_name" => $from->getLastName(),

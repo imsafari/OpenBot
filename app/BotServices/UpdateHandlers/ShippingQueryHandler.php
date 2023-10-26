@@ -33,7 +33,7 @@ class ShippingQueryHandler extends BaseHandler implements UpdateHandlerInterface
         $from = $this->update->getShippingQuery()->getFrom();
 
         return new User(...[
-            "id" => $from->getId(),
+            "id" => (string)$from->getId(),
             "is_bot" => $from->getIsBot(),
             "first_name" => $from->getFirstName(),
             "last_name" => $from->getLastName(),
