@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BotServices\ConversationLayer;
+namespace App\BotServices\Interfaces;
 
 
 interface ConversationHandlerInterface

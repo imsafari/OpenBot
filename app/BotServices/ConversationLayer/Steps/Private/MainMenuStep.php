@@ -2,12 +2,12 @@
 
 namespace App\BotServices\ConversationLayer\Steps\Private;
 
-use App\BotServices\BotContext;
+use App\BotServices\Contexts\BotContext;
+use App\BotServices\Contexts\StepContext;
 use App\BotServices\ConversationLayer\Steps\BaseStep;
-use App\BotServices\ConversationLayer\Steps\StepContext;
-use App\BotServices\ConversationLayer\Steps\StepInterface;
 use App\BotServices\Enums\PrivateState;
-use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
+use App\BotServices\Interfaces\StepInterface;
+use App\BotServices\Interfaces\UpdateHandlerInterface;
 use Longman\TelegramBot\Entities\Update;
 use Longman\TelegramBot\Request;
 

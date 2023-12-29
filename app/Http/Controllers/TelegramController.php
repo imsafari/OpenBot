@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
+use App\BotServices\Interfaces\UpdateHandlerInterface;
 use Illuminate\Http\Request;
 
 class TelegramController extends Controller

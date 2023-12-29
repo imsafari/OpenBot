@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BotServices\ConversationLayer\Steps;
+namespace App\BotServices\Interfaces;
 
 
 interface StepInterface

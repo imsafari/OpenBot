@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BotServices\UpdateHandlers;
+namespace App\BotServices\Interfaces;
 
 use App\BotServices\Chat;
 use App\BotServices\User;

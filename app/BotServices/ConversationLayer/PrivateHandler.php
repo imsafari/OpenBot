@@ -2,11 +2,12 @@
 
 namespace App\BotServices\ConversationLayer;
 
-use App\BotServices\BotContext;
 use App\BotServices\Chat;
+use App\BotServices\Contexts\BotContext;
 use App\BotServices\ConversationLayer\Steps\Private\MainMenuStep;
 use App\BotServices\ConversationLayer\Steps\Private\StartStep;
 use App\BotServices\Enums\MetaKeys;
+use App\BotServices\Interfaces\ConversationHandlerInterface;
 use App\BotServices\User;
 use App\Models\Conversation as ConversationModel;
 use Illuminate\Support\Facades\DB;

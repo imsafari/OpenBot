@@ -2,9 +2,11 @@
 
 namespace App\BotServices\ConversationLayer\Steps;
 
-use App\BotServices\BotContext;
+use App\BotServices\Contexts\BotContext;
+use App\BotServices\Contexts\StepContext;
 use App\BotServices\Enums\ConversationState;
-use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
+use App\BotServices\Interfaces\StepInterface;
+use App\BotServices\Interfaces\UpdateHandlerInterface;
 use Longman\TelegramBot\Entities\Update;
 
 class FinisherStep extends BaseStep implements StepInterface

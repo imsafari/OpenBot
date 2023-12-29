@@ -2,7 +2,8 @@
 
 namespace App\BotServices\ConversationLayer\Steps;
 
-use App\BotServices\BotContext;
+use App\BotServices\Contexts\BotContext;
+use App\BotServices\Contexts\StepContext;
 
 abstract class BaseStep
 {

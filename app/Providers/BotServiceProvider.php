@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\BotServices\BotContext;
-use App\BotServices\ConversationLayer\ConversationHandlerInterface;
-use App\BotServices\ConversationLayer\Steps\StepContext;
-use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
+use App\BotServices\Contexts\BotContext;
+use App\BotServices\Contexts\StepContext;
+use App\BotServices\Interfaces\ConversationHandlerInterface;
+use App\BotServices\Interfaces\UpdateHandlerInterface;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Longman\TelegramBot\Entities\Update;

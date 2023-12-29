@@ -3,9 +3,8 @@
 namespace App\BotServices\UpdateHandlers;
 
 use App\BotServices\Chat;
-use App\BotServices\ConversationLayer\ConversationHandlerInterface;
+use App\BotServices\Interfaces\UpdateHandlerInterface;
 use App\BotServices\User;
-use Illuminate\Support\Facades\App;
 use Longman\TelegramBot\Entities\Update;
 
 class ChatMemberHandler extends BaseHandler  implements UpdateHandlerInterface

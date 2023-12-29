@@ -1,13 +1,14 @@
 <?php
 
-namespace App\BotServices;
+namespace App\BotServices\Contexts;
 
 use App\BotServices\ConversationLayer\ChannelHandler;
-use App\BotServices\ConversationLayer\ConversationHandlerInterface;
 use App\BotServices\ConversationLayer\GroupHandler;
 use App\BotServices\ConversationLayer\PrivateHandler;
 use App\BotServices\Enums\ChatType;
 use App\BotServices\Enums\UpdateType;
+use App\BotServices\Interfaces\ConversationHandlerInterface;
+use App\BotServices\Interfaces\UpdateHandlerInterface;
 use App\BotServices\UpdateHandlers\CallbackQueryHandler;
 use App\BotServices\UpdateHandlers\ChannelPostHandler;
 use App\BotServices\UpdateHandlers\ChatJoinRequest;
@@ -22,7 +23,6 @@ use App\BotServices\UpdateHandlers\PollAnswerHandler;
 use App\BotServices\UpdateHandlers\PollHandler;
 use App\BotServices\UpdateHandlers\PreCheckoutQueryHandler;
 use App\BotServices\UpdateHandlers\ShippingQueryHandler;
-use App\BotServices\UpdateHandlers\UpdateHandlerInterface;
 use App\Models\Conversation;
 use Longman\TelegramBot\Entities\Update;
 use Longman\TelegramBot\Telegram;

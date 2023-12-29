@@ -1,8 +1,8 @@
 <?php
 
-namespace App\BotServices\ConversationLayer\Steps;
+namespace App\BotServices\Contexts;
 
-use App\BotServices\BotContext;
+use App\BotServices\Interfaces\StepInterface;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Longman\TelegramBot\Entities\Update;
