@@ -66,4 +66,18 @@ abstract class BaseStep
         $botContext->conversation->state = $step;
         $stepContext->setEnterState($step);
     }
+
+    public function removeLastMessageKeyboard(): void
+    {
+        $botContext = app(BotContext::class);
+        $conversation = $botContext->conversation->getOriginal();
+        if (isset($conversation["last_message_id"])) {
+            Request::editMessageReplyMarkup([
+                "chat_id" => $botContext->conversation->chat_id,
+                "message_id" => $conversation["last_message_id"],
+                "reply_markup" => "",
+            ]);
+        }
+
+    }
 }
