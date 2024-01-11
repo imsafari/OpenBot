@@ -2,8 +2,6 @@
 
 namespace App\Helpers;
 
-use function Laravel\Prompts\select;
-
 class CallbackButton
 {
 
