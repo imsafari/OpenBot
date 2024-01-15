@@ -73,4 +73,9 @@ abstract class Conversation
             ["content" => $value]
         );
     }
+
+    public function removeMeta(string $key): bool
+    {
+        return (bool)$this->conversation->meta()->where("property", $key)->delete();
+    }
 }

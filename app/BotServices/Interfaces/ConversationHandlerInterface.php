@@ -15,4 +15,6 @@ interface ConversationHandlerInterface
     public function getMeta(string $key, string $default): string;
 
     public function setMeta(string $key, string $value): bool;
+
+    public function removeMeta(string $key): bool;
 }
